@@ -40,7 +40,8 @@ void update() {
         if (i == 2) cout << "#  x - Snake" << endl;
         else if (i == 3) cout << "#  o - Body" << endl;
         else if (i == 4) cout << "#  # - Border" << endl;
-        else if (i == 6) cout << "#  wasd - Management" << endl;
+        else if (i == 6) cout << "#  wasd - Mana-" << endl;
+        else if (i == 7) cout << "#  gement" << endl;
         else cout << "#" << endl;
     }
     for (int j = 0; j < wights+1; j++) {

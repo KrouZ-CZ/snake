@@ -4,7 +4,7 @@
 using namespace std;
 bool gameOver, test;
 int heigst, wights, frutx, fruty, playerx, playery, score, c;
-vector <vector <int> > telo;
+vector <vector <int> > body;
 void setup() {
     srand(time(NULL));
     heigst = 20;
@@ -16,7 +16,7 @@ void setup() {
     playerx = 10;
     playery = 10;
     score = 0;
-    telo = { {playerx, playery}, {playerx, playery-1} };
+    body = { {playerx, playery}, {playerx, playery-1} };
     system("mode con: cols=35 lines=20 && title Snake Game!");
 }
 void update() {
@@ -29,8 +29,8 @@ void update() {
         cout << "#";
         for (int j = 1; j < wights; j++) {
             int c = 0;
-            for (int k = 1; k < telo.size(); k++)
-                if (telo[k][0] == i && telo[k][1] == j) { cout << "o"; c = 1; }
+            for (int k = 1; k < body.size(); k++)
+                if (body[k][0] == i && body[k][1] == j) { cout << "o"; c = 1; }
             if (c == 0) {
                 if (playery == i && playerx == j) { cout << "x"; }
                 else if (fruty == i && frutx == j) { cout << "@"; }
@@ -63,25 +63,25 @@ void logic() {
             int b = 0;
             frutx = 1 + rand() % 17;
             fruty = 1 + rand() % 17;
-            for (int i = telo.size() - 1; i >= 0; i--) {
-                if (telo[i][0] == frutx || telo[i][1] == fruty) {
+            for (int i = body.size() - 1; i >= 0; i--) {
+                if (body[i][0] == frutx || body[i][1] == fruty) {
                     b += 1;
                 }
             }
             if (b == 0) { test = false; }
         }
-        int x = telo[telo.size() - 1][0] - 1;
-        int y = telo[telo.size() - 1][1] - 1;
-        telo.push_back({ x, y });
+        int x = body[body.size() - 1][0] - 1;
+        int y = body[body.size() - 1][1] - 1;
+        body.push_back({ x, y });
         score += 1;
     }
-    for (int i = telo.size() - 1; i > 0; i--) {
-        telo[i][0] = telo[i - 1][0];
-        telo[i][1] = telo[i - 1][1];
+    for (int i = body.size() - 1; i > 0; i--) {
+        body[i][0] = body[i - 1][0];
+        body[i][1] = body[i - 1][1];
     }
-    telo[0] = { playery, playerx };
-    for (int i = telo.size() - 1; i > 0; i--) {
-        if (telo[i][0] == playery && telo[i][1] == playerx)
+    body[0] = { playery, playerx };
+    for (int i = body.size() - 1; i > 0; i--) {
+        if (body[i][0] == playery && body[i][1] == playerx)
             gameOver = true;
     }
 }

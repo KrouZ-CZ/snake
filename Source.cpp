@@ -87,7 +87,7 @@ void logic() {
 }
 void menu() {
     cout << "Snake Game" << endl << endl << "Press any key to start";
-    system("pause > null");
+    system("pause > nul");
 }
 int main() {
     while (true) {

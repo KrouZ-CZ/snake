@@ -1,21 +1,26 @@
 #include <iostream>
 #include <conio.h>
 #include <vector>
+#include <string>
+#include <windows.h>
 using namespace std;
-bool gameOver, test;
+bool gameOver, test, stop;
 int heigst, wights, frutx, fruty, playerx, playery, score, c;
+string dir;
 vector <vector <int> > body;
 void setup() {
     srand(time(NULL));
     heigst = 20;
     wights = 20;
     gameOver = false;
+    stop = false;
     test = true;
     frutx = 1 + rand() % 17;
     fruty = 1 + rand() % 17;
     playerx = 10;
     playery = 10;
     score = 0;
+    dir = "up";
     body = { {playerx, playery}, {playerx, playery-1} };
     system("mode con: cols=35 lines=20 && title Snake Game!");
 }
@@ -42,6 +47,7 @@ void update() {
         else if (i == 4) cout << "#  # - Border" << endl;
         else if (i == 6) cout << "#  wasd - Mana-" << endl;
         else if (i == 7) cout << "#  gement" << endl;
+        else if (i == 9) cout << "#  q - quit" << endl;
         else cout << "#" << endl;
     }
     for (int j = 0; j < wights+1; j++) {
@@ -49,11 +55,14 @@ void update() {
     }
 }
 void input() {
-    switch (_getch()) {
-        case 'w': playery -= 1; break;
-        case 's': playery += 1; break;
-        case 'a': playerx -= 1; break;
-        case 'd': playerx += 1; break;
+    if (_kbhit()){
+        switch (_getch()) {
+            case 'w': dir = "up"; break;
+            case 's': dir = "down"; break;
+            case 'a': dir = "left"; break;
+            case 'd': dir = "right"; break;
+            case 'q': stop = true; gameOver = true;  break;
+        }
     }
 }
 void logic() {
@@ -61,6 +70,10 @@ void logic() {
         gameOver = true;  
     if (playerx == frutx && playery == fruty) {
         test = true;
+        int x = body[body.size() - 1][0] - 1;
+        int y = body[body.size() - 1][1] - 1;
+        body.push_back({ x, y });
+        score += 1;
         while (test) {
             int b = 0;
             frutx = 1 + rand() % 17;
@@ -72,11 +85,11 @@ void logic() {
             }
             if (b == 0) { test = false; }
         }
-        int x = body[body.size() - 1][0] - 1;
-        int y = body[body.size() - 1][1] - 1;
-        body.push_back({ x, y });
-        score += 1;
     }
+    if (dir == "up") playery -= 1;
+    else if (dir == "down") playery += 1;
+    else if (dir == "left") playerx -= 1;
+    else if (dir == "right") playerx += 1;
     for (int i = body.size() - 1; i > 0; i--) {
         body[i][0] = body[i - 1][0];
         body[i][1] = body[i - 1][1];
@@ -92,13 +105,15 @@ void menu() {
     system("pause > nul");
 }
 int main() {
-    while (true) {
+    setup();
+    while (!stop) {
         setup();
         menu();
         while (!gameOver) {
             update();
             input();
             logic();
+            Sleep(80);
         }
     }
     return 0;

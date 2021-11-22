@@ -74,7 +74,7 @@ void logic() {
         int x = body[body.size() - 1][0];
         int y = body[body.size() - 1][1];
         body.push_back({ x, y });
-        if (timer > 80) timer -= 20;
+        if (timer > 50) timer -= 20;
         score += 1;
         while (test) {
             int b = 0;
@@ -112,9 +112,9 @@ int main() {
         setup();
         menu();
         while (!gameOver) {
-            update();
             input();
             logic();
+            update();
             Sleep(timer);
         }
     }

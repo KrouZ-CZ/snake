@@ -5,10 +5,11 @@
 #include <windows.h>
 using namespace std;
 bool gameOver, test, stop;
-int heigst, wights, frutx, fruty, playerx, playery, score, c;
+int heigst, wights, frutx, fruty, playerx, playery, score, c, timer;
 string dir;
 vector <vector <int> > body;
 void setup() {
+    timer = 200;
     srand(time(NULL));
     heigst = 20;
     wights = 20;
@@ -70,9 +71,10 @@ void logic() {
         gameOver = true;  
     if (playerx == frutx && playery == fruty) {
         test = true;
-        int x = body[body.size() - 1][0] - 1;
-        int y = body[body.size() - 1][1] - 1;
+        int x = body[body.size() - 1][0];
+        int y = body[body.size() - 1][1];
         body.push_back({ x, y });
+        if (timer > 80) timer -= 20;
         score += 1;
         while (test) {
             int b = 0;
@@ -113,7 +115,7 @@ int main() {
             update();
             input();
             logic();
-            Sleep(80);
+            Sleep(timer);
         }
     }
     return 0;

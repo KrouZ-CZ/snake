@@ -24,6 +24,13 @@ void setup() {
     dir = "up";
     body = { {playerx, playery}, {playerx, playery-1} };
     system("mode con: cols=35 lines=20 && title Snake Game!");
+    HANDLE soh = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_FONT_INFOEX cfi;
+    memset(&cfi, 0, sizeof(cfi));
+    cfi.cbSize = sizeof(cfi);
+    GetCurrentConsoleFontEx(soh, FALSE, &cfi);
+    cfi.dwFontSize.Y = 26;
+    SetCurrentConsoleFontEx(soh, FALSE, &cfi);
 }
 void update() {
     system("cls");
@@ -74,7 +81,7 @@ void logic() {
         int x = body[body.size() - 1][0];
         int y = body[body.size() - 1][1];
         body.push_back({ x, y });
-        if (timer > 50) timer -= 20;
+        if (timer > 50) timer -= 12;
         score += 1;
         while (test) {
             int b = 0;

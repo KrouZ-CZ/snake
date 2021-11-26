@@ -34,12 +34,13 @@ void setup() {
 }
 void update() {
     system("cls");
-    for (int j = 0; j < wights+1; j++) {
-        cout << "#";
+    cout << char(201);
+    for (int j = 0; j < wights-1; j++) {
+        cout << char(205);
     }
-    cout << "  Score: " << score << endl;
+    cout << char(187) << "  Score: " << score << endl;
     for (int i = 1; i < heigst - 2; i++) {
-        cout << "#";
+        cout << char(186);
         for (int j = 1; j < wights; j++) {
             int c = 0;
             for (int k = 1; k < body.size(); k++)
@@ -50,17 +51,17 @@ void update() {
                 else { cout << " "; }
             }
         }
-        if (i == 2) cout << "#  x - Snake" << endl;
-        else if (i == 3) cout << "#  o - Body" << endl;
-        else if (i == 4) cout << "#  # - Border" << endl;
-        else if (i == 6) cout << "#  wasd - Mana-" << endl;
-        else if (i == 7) cout << "#  gement" << endl;
-        else if (i == 9) cout << "#  q - quit" << endl;
-        else cout << "#" << endl;
+        if (i == 2) cout << char(186) << "  @ - Snake" << endl;
+        else if (i == 3) cout << char(186) << "  o - Body" << endl;
+        else if (i == 4) cout << char(186) << "  # - Border" << endl;
+        else if (i == 6) cout << char(186) << "  q - quit" << endl;
+        else cout << char(186) << endl;
     }
-    for (int j = 0; j < wights+1; j++) {
-        cout << "#";
+    cout << char(200);
+    for (int j = 0; j < wights-1; j++) {
+        cout << char(205);
     }
+    cout << char(188);
 }
 void input() {
     if (_kbhit()){
@@ -88,7 +89,7 @@ void logic() {
             frutx = 1 + rand() % 17;
             fruty = 1 + rand() % 17;
             for (int i = body.size() - 1; i >= 0; i--) {
-                if (body[i][0] == frutx || body[i][1] == fruty) {
+                if (body[i][1] == frutx || body[i][0] == fruty) {
                     b += 1;
                 }
             }
